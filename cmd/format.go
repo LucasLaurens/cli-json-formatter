@@ -1,10 +1,7 @@
-/*
-Copyright © 2025 NAME HERE <EMAIL ADDRESS>
-*/
 package cmd
 
 import (
-	"encoding/json"
+	"cli-json-formatter/internal/service"
 	"fmt"
 
 	"github.com/spf13/cobra"
@@ -17,38 +14,14 @@ var formatCmd = &cobra.Command{
 	Long:  "Small command to transform String into Json format",
 	Run: func(cmd *cobra.Command, args []string) {
 		jsonAsString, _ := cmd.Flags().GetString("unparsed")
+		formatted, err := service.FormatStringToJson(jsonAsString)
 
-		formatted, err := FormatStringToJson(jsonAsString)
 		if err != nil {
 			fmt.Println(err)
 		} else {
 			fmt.Println(formatted)
 		}
 	},
-}
-
-// todo: Cut into several sub methods and files
-func FormatStringToJson(value string) (string, error) {
-	// todo: create a struct to replace basic one
-	var formattedJson json.RawMessage
-	err := json.Unmarshal([]byte(value), &formattedJson)
-	if err != nil {
-		return "", fmt.Errorf(
-			"you cannot parse this string to json format: %v",
-			err,
-		)
-	}
-
-	indentedJson, err := json.MarshalIndent(formattedJson, "", "  ")
-	if err != nil {
-		return "", fmt.Errorf(
-			"you are not allowed to indent the json: %v",
-			err,
-		)
-	}
-
-	// todo: export formatted json as a file
-	return string(indentedJson), nil
 }
 
 func init() {

@@ -17,7 +17,15 @@ This is a small project to test the Go language.
 
 ## Init
 
-// ...
+To be able to use the Cobra package executable, you need to follow the documentation provided and then remember to export the path. It adds the Go workspace's bin directory to your system's PATH environment variable.
+
+<br/>
+
+> [!NOTE]
+> This allows you to run Go installed binaries (e.g., tools installed with go install) from anywhere in your terminal without needing to specify their full path.
+
+<br/>
+
 
 ```shell
 export PATH="$(go env GOPATH)/bin:$PATH"

@@ -2,7 +2,7 @@ package tests
 
 import (
 	"cli-json-formatter/internal/service"
-	"fmt"
+	"encoding/json"
 	"reflect"
 	"testing"
 )
@@ -31,11 +31,18 @@ func TestFormatStringToJson(t *testing.T) {
 				t.Errorf("unexpected error for input %s: %s", tt.input, err)
 			}
 
-			fmt.Println(reflect.TypeOf(formattedJson))
-			// todo: fix the string to json format for both
-			// if formattedJson != tt.expected {
-			// 	t.Errorf("expected %s, got %s", tt.expected, formattedJson)
-			// }
+			var expectedObj, resultObj map[string]interface{}
+
+			if err := json.Unmarshal([]byte(tt.expected), &expectedObj); err != nil {
+				t.Fatalf("invalid expected JSON: %s", err)
+			}
+			if err := json.Unmarshal([]byte(formattedJson), &resultObj); err != nil {
+				t.Fatalf("invalid formatted JSON from function: %s", err)
+			}
+
+			if !reflect.DeepEqual(expectedObj, resultObj) {
+				t.Errorf("expected %+v, got %+v", expectedObj, resultObj)
+			}
 		})
 	}
 }

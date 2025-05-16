@@ -40,6 +40,8 @@ You need to compile the source of you program before being able to run the comma
 go build
 ```
 
+<br/>
+
 
 The next step is to check the help message because you're running the compile source command. It gives you all the child commands you've created and the options they contain.
 ```sh

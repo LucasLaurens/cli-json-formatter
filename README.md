@@ -46,9 +46,13 @@ The next step is to check the help message because you're running the compile so
 ./cli-json-formatter
 ```
 
+<br/>
+
 > [!NOTE]
 > The string argument to json should look like this : `'{"key": "value"}'`
 > For the shell to correctly interpret the passed string, in order to format it in json
+
+<br/>
 
 ```sh
 ./cli-json-formatter format -u '{"key": "value"}'
